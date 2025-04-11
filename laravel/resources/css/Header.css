@@ -1,0 +1,27 @@
+header {
+    background-color: rgb(235, 61, 55);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
+}
+header > nav > p {
+    font-size: 0.5cm;
+
+}
+header > nav , nav > div {
+    justify-content: space-between;
+    align-items: center;
+}
+
+header > nav  , ul , .imgB {
+    display: flex;
+    flex-direction: row;
+    gap: 1cm;
+    margin: 0.5cm;
+    
+}
+header > nav > div > img {
+    width: 1.5cm;
+    border-radius: 50%;
+
+}
+
