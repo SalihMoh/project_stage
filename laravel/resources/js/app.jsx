@@ -2,13 +2,14 @@ import './bootstrap';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Header from './Header';
+import Acceuil from './Acceuil';
 
 // Example: A simple React component
 function App() {
     return (
     <div>
         <Header />
-        <h1>Hello, Laravel + React!</h1>
+        <Acceuil />
     </div>
     )
 }

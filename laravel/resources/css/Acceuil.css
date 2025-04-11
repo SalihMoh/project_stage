@@ -1,0 +1,87 @@
+
+.div-bienvenu {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to right, #802a2a, #fc5353);
+
+    padding: 2cm;
+    color: white;
+
+}
+.div-bienvenu > h3 , p , button {
+    
+    justify-content: center;
+    padding: 0.5cm;
+}
+.div-bienvenu > .buttons > button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10%;
+    margin-right: 0.5CM;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    animation: colorSwitch 4s infinite;
+}
+
+@keyframes colorSwitch {
+    0% {
+      background-color: #802a2a;
+    }
+    50% {
+      background-color: #b91a1a;
+    }
+    100% {
+      background-color: #802a2a;
+    }
+  }
+
+h3 {
+    font-size: large;
+}
+
+.div-service > h3 {
+    color: rgb(235, 61, 55);
+    font-size: 1.5cm;
+}
+.div-service {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.div-service>.service-container {
+    display: flex;
+    gap: 1cm;
+}
+.div-service > .service-container > div { 
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0.5cm;
+    background-color: #fc5353;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 11px rgba(0, 0, 0, 0.1);
+} 
+
+.div-service > .service-container > div:hover { 
+  background: #b91a1a;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+  transform: translateY(-2px);
+} 
+
+.div-service > .service-container > div > .service-icon > img {
+    height: 1.4cm;
+    width: 1.4cm;
+    border-radius: 50%;
+}
+
+.div-service > .service-container > div > .service-icon  {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+
+
