@@ -1,6 +1,7 @@
 header {
     background-color: rgb(235, 61, 55);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 0;
     
 }
 header > nav > p {
@@ -23,5 +24,14 @@ header > nav > div > img {
     width: 1.5cm;
     border-radius: 50%;
 
+}
+
+ul.listnav {
+    list-style: none;
+}
+
+ul.listnav > li > a {
+    text-decoration: none;
+    color: black;
 }
 
