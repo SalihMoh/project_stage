@@ -1,0 +1,12 @@
+.footer {
+    background-color: rgb(235, 61, 55);
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    margin-top: 1cm;
+    display: flex;
+    justify-content: space-between;
+}
+.footer > p {
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
+    padding: 0.3cm;
+}

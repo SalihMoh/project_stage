@@ -89,8 +89,14 @@ div.info-DEJ {
 div.info-COM {
 display: block;
 }
-div.info-COM > img {
+div.info-COM > div > img {
  border-radius: 50%;
+}
+div.info-COM > div  {
+display: flex; 
+justify-content: center;
+align-items: center;
+gap: 2cm;
 }
 
 
