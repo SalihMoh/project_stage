@@ -1,5 +1,5 @@
 header {
-    background-color: rgb(235, 61, 55);
+    background-color: rgb(16, 151, 27);
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     margin-top: 0;
     
@@ -17,7 +17,8 @@ header > nav  , ul , .imgB {
     display: flex;
     flex-direction: row;
     gap: 1cm;
-    margin: 0.5cm;
+    margin-left: 0.5cm;
+    margin-right: 0.5cm;
     
 }
 header > nav > div > img {

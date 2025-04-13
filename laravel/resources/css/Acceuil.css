@@ -2,7 +2,7 @@
 .div-bienvenu {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #802a2a, #fc5353);
+    background: linear-gradient(to right, #0b5209, #3ccf1f);
     margin-top: 0.5cm;
     padding: 2cm;
     color: white;
@@ -21,24 +21,11 @@
     font-size: 16px;
     cursor: pointer;
     color: white;
-    animation: colorSwitch 4s infinite;
 }
 
-@keyframes colorSwitch {
-    0% {
-      background-color: #802a2a;
-    }
-    50% {
-      background-color: #b91a1a;
-    }
-    100% {
-      background-color: #802a2a;
-    }
-  }
 
 h3 {
     font-size: large;
-    color: rgb(235, 61, 55);
     font-size: 1cm;
 }
 

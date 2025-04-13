@@ -1,0 +1,31 @@
+div.EC-acte { 
+    margin: 1cm;
+    display: flex;
+    justify-content: center;
+}
+
+div.buttons > button {
+    color: red; 
+    flex-grow: 1; 
+    height: 0.8cm; /* Reduced button height */
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 0; /* Remove default padding */
+    border: none; /* Optional: remove border if needed */
+}
+
+div.buttons > button:hover {
+    cursor: pointer;
+}
+
+
+
+div.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 0.8cm; /* Match container height to button height */
+    width: 25cm;
+    background-color: black;
+}

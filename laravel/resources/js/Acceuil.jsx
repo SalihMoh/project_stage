@@ -29,7 +29,7 @@ return (<div className="div-holder">
                     <p>états-civil</p>
                 </div>
                 <p>Actes de naissance, mariage et décès</p>
-                <a href="">Demander</a>
+                <a href="/form-EC">Demander</a>
 
             </div>
 
@@ -39,7 +39,7 @@ return (<div className="div-holder">
                     <p>urbanisme</p> 
                 </div>
                 <p>Permis de construire et autorisations</p>
-                <a href="">Demander</a>
+                <a href="/form-U">Demander</a>
             </div>
 
             <div className="taxe-locale">
@@ -48,7 +48,7 @@ return (<div className="div-holder">
                     <p>taxe-locale</p>
                 </div>
                 <p>Paiement en ligne des taxes municipales</p>
-                <a href="">Demander</a>
+                <a href="/form-TL">Demander</a>
 
             </div>
             <div className="signalement">
@@ -57,7 +57,7 @@ return (<div className="div-holder">
                     <p>signalement</p>
                 </div>
                 <p>Signaler un problème dans votre quartier</p>
-                <a href="">Demander</a>
+                <a href="form-S">Demander</a>
             </div>
         </div>
         
