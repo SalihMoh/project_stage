@@ -1,0 +1,138 @@
+div.EC-acte { 
+    margin: 5cm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+div.EC-acte > div.buttons > button {
+    color: rgb(22, 202, 37); 
+    flex-grow: 1; 
+    height: 0.8cm;
+    display: flex;
+    text-align: center;
+    align-items: center;
+    padding: 0 1rem;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+div.EC-acte > div.buttons > button.active {
+    background-color: rgb(22, 202, 37);
+    color: white;
+    font-weight: bold;
+}
+
+div.buttons {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 0.8cm;
+    width: 25cm;
+    background-color: black;
+    margin-bottom: 2rem;
+}
+
+.forms-container {
+    width: 100%;
+    max-width: 25cm;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.forms-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.forms-container label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.forms-container input {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.forms-container button[type="submit"] {
+    padding: 0.5rem 1rem;
+    background-color: rgb(22, 202, 37);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    align-self: flex-start;
+}
+
+/* Modal Styles */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .rdv-modal {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .rdv-modal h3 {
+    margin-top: 0;
+    color: #2c3e50;
+  }
+  
+  .rdv-modal label {
+    display: block;
+    margin-bottom: 1rem;
+  }
+  
+  .rdv-modal input[type="date"],
+  .rdv-modal input[type="time"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  
+  .modal-buttons button {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .modal-buttons button[type="button"] {
+    background: #f1f1f1;
+  }
+  
+  .modal-buttons button[type="submit"] {
+    background: #4CAF50;
+    color: white;
+  }

@@ -2,10 +2,10 @@ import './bootstrap';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Header from './Header';
-import Acceuil from './Acceuil';
-import Footer from './Footer';
-import FormEC  from './form-EC';
+import Header from './Header/Header';
+import Acceuil from './Home/Acceuil';
+import Footer from './Footer/Footer';
+import FormEC  from './Forms/form-EC';
 
 function App() {
     return (

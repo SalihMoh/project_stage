@@ -20,9 +20,13 @@
     margin-right: 0.5CM;
     font-size: 16px;
     cursor: pointer;
-    color: white;
+    background-color: transparent;
 }
+.div-bienvenu > div.buttons > button > a { color: black;}
 
+.div-bienvenu > div.buttons {
+   background-color: transparent ;
+}
 
 h3 {
     font-size: large;
@@ -46,13 +50,13 @@ h3 {
     flex-direction: column;
     text-align: center;
     padding: 0.5cm;
-    background-color: #fc5353;
+    background-color: rgb(22, 202, 37);
     transition: all 0.3s ease;
     box-shadow: 0 2px 11px rgba(0, 0, 0, 0.1);
 } 
 
 .div-service > .service-container > div:hover { 
-  background: #b91a1a;
+  background: rgb(13, 139, 23);
   box-shadow: 0 10px 20px rgba(0,0,0,0.15);
   transform: translateY(-2px);
 } 
