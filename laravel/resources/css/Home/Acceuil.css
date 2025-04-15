@@ -2,7 +2,7 @@
 .div-bienvenu {
     display: flex;
     flex-direction: column;
-    background: linear-gradient(to right, #0b5209, #3ccf1f);
+    background: linear-gradient(to right, #0c6109, rgb(22, 202, 37));
     margin-top: 0.5cm;
     padding: 2cm;
     color: white;
