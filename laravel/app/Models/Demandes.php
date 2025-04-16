@@ -13,6 +13,7 @@ class Demandes extends Model
 
     protected $fillable = [
         'CIN',
+        'type',
         'date_demande',
         'Archive',
         'status'

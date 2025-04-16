@@ -1,9 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Demandes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class DemandesController extends Controller
 {
@@ -12,11 +13,46 @@ class DemandesController extends Controller
         return view('welcome');
     }
 
-   public function index (){
+    public function test()
+    {
+       return view('welcome');
+    }
+
+   public function index ()
+   {
     return response()->json([
         'success' => true,
         'data' => Demandes::orderBy('created_at', 'desc')->get()
     ]);
    }
    
-}
+   public function store (Request $request)
+   {
+       $validator = Validator::make($request -> all(), [
+        'CIN' => 'required|string|regex:/^[A-Za-z]{2}[0-9]{6}$/',
+        'type' => 'required|in:naissance,mariage,décès',
+        'date_demande' => 'date',
+        'Archive' => 'Bool',
+        'status' => 'in:en_attente,approuvé,rejeté'
+       ]
+    );
+
+    if ($validator->fails()) {
+        return response()->json([
+            'message' => 'Validation failed',
+            'errors' => $validator->errors()
+        ], 422);
+    }
+     $demande = Demandes::create([
+        'CIN' => $request -> CIN ,
+        'type' => $request -> type,
+        'date_demande' => $request -> date_demande,
+        'Archive' => $request -> Archive,
+        'status' => $request -> status
+     ]) ;
+
+     return response() -> json(['message' => 'demande enregistré' , 'data' => $demande] , 201);
+
+   }
+   
+};

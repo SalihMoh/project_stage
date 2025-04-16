@@ -11,8 +11,9 @@ class DemandesFactory extends Factory
     {
         return [
             'CIN' => Citoyen::inRandomOrder()->first()->CIN ?? Citoyen::factory(),
+            'type' => $this ->faker -> randomElement(['naissance', 'mariage', 'décès']),
             'date_demande' => $this->faker->dateTimeBetween('-1 year', 'now'),
-            'Archive' => $this->faker->boolean(20), // 20% chance of being archived
+            'Archive' => $this->faker->boolean(20), 
             'status' => $this->faker->randomElement([
                 'en_attente', 
                 'approuvé', 
