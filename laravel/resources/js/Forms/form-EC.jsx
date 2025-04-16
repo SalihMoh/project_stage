@@ -8,17 +8,20 @@ function FormEC() {
   const [activeButton, setActiveButton] = useState("Acte de Naissance");
   const [formData, setFormData] = useState({
     naissance: {
+      CIN: '',
       nomComplet: '',
       dateNaissance: '',
       lieuNaissance: ''
     },
     mariage: {
+      CIN: '',
       conjoint1: '',
       conjoint2: '',
       dateMariage: '',
       lieuMariage: ''
     },
     deces: {
+      CIN: '',
       nomDefunt: '',
       dateDeces: '',
       lieuDeces: '',
@@ -46,7 +49,7 @@ function FormEC() {
     });
     if (errors[field]) {
       setErrors(prev => {
-        const newErrors = {...prev};
+        const newErrors = { ...prev };
         delete newErrors[field];
         return newErrors;
       });
@@ -56,7 +59,7 @@ function FormEC() {
   const validateForm = (formType) => {
     const currentForm = formData[formType];
     const newErrors = {};
-    
+
     Object.entries(currentForm).forEach(([field, value]) => {
       if (!value.trim()) {
         newErrors[field] = 'Ce champ est obligatoire';
@@ -74,13 +77,13 @@ function FormEC() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = async(e, formType) => {
+  const handleSubmit = async (e, formType) => {
     e.preventDefault();
-    
+
     if (!validateForm(formType)) {
       toast.error('Veuillez remplir tous les champs obligatoires', {
-        position: "top-right", 
-        autoClose: 3000, 
+        position: "top-right",
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -92,19 +95,18 @@ function FormEC() {
     try {
       // Simulate API call
       setShowRdvModal(true);
-      
-      // Reset form - fixed the missing parenthesis
+
+      // Reset form
       setFormData({
         ...formData,
         [formType]: Object.fromEntries(
           Object.keys(formData[formType]).map(key => [key, ''])
-        )
-      }) ;
-      
+      )});
+
     } catch (error) {
       toast.error('Erreur, demande non envoyée', {
-        position: "top-right", 
-        autoClose: 3000, 
+        position: "top-right",
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -116,15 +118,15 @@ function FormEC() {
 
   const handleRdvSubmit = (e) => {
     e.preventDefault();
-    
+
     // Convert selected time to minutes since midnight
     const [selectedHours, selectedMinutes] = rdvTime.split(':').map(Number);
     const selectedTimeInMinutes = selectedHours * 60 + selectedMinutes;
-    
+
     // Define working hours (8:30 AM to 4:30 PM in minutes)
     const openingTime = 8 * 60 + 30; // 8:30 AM
     const closingTime = 16 * 60 + 30; // 4:30 PM
-    
+
     // Validate working hours
     if (selectedTimeInMinutes < openingTime || selectedTimeInMinutes > closingTime) {
       toast.error('Veuillez choisir un horaire entre 8h30 et 16h30', {
@@ -133,7 +135,7 @@ function FormEC() {
       });
       return;
     }
-    
+
     // Validate duration (15 minutes max)
     const endTimeInMinutes = selectedTimeInMinutes + 15;
     if (endTimeInMinutes > closingTime) {
@@ -143,10 +145,10 @@ function FormEC() {
       });
       return;
     }
-    
+
     // Format the selected time for display
     const formattedTime = `${String(selectedHours).padStart(2, '0')}:${String(selectedMinutes).padStart(2, '0')}`;
-    
+
     toast.success(`Demande Rendez-vous confirmé à ${formattedTime}`, {
       position: "top-right",
       autoClose: 3000,
@@ -177,36 +179,36 @@ function FormEC() {
   return (
     <div className="EC-acte">
       <ToastContainer />
-      
+
       {/* RDV Modal */}
       {showRdvModal && (
         <div className="modal-overlay">
           <div className="rdv-modal">
             <h3>Planifier un Rendez-vous</h3>
             <p>Votre demande a été soumise avec succès. Veuillez choisir un créneau de 30 minutes maximum.</p>
-            
+
             <form onSubmit={handleRdvSubmit}>
               <label>
                 Date du rendez-vous:
-                <input 
-                  type="date" 
+                <input
+                  type="date"
                   value={rdvDate}
                   onChange={(e) => setRdvDate(e.target.value)}
                   required
                   min={new Date().toISOString().split('T')[0]}
                 />
               </label>
-              
+
               <label>
                 Heure du rendez-vous:
-                <input 
-                  type="time" 
+                <input
+                  type="time"
                   value={rdvTime}
                   onChange={(e) => setRdvTime(e.target.value)}
                   required
                 />
               </label>
-              
+
               <div className="modal-buttons">
                 <button type="button" onClick={() => setShowRdvModal(false)}>
                   Annuler
@@ -246,6 +248,7 @@ function FormEC() {
           <div className="form-naissance">
             <h2>Formulaire d'Acte de Naissance</h2>
             <form onSubmit={(e) => handleSubmit(e, "naissance")}>
+              {renderFormField("naissance", "CIN", "CIN de demandeur")}
               {renderFormField("naissance", "nomComplet", "Nom complet")}
               {renderFormField("naissance", "dateNaissance", "Date de naissance", "date")}
               {renderFormField("naissance", "lieuNaissance", "Lieu de naissance")}
@@ -258,6 +261,7 @@ function FormEC() {
           <div className="form-mariage">
             <h2>Formulaire d'Acte de Mariage</h2>
             <form onSubmit={(e) => handleSubmit(e, "mariage")}>
+              {renderFormField("mariage", "CIN", "CIN de demandeur")}
               {renderFormField("mariage", "conjoint1", "Nom du conjoint 1")}
               {renderFormField("mariage", "conjoint2", "Nom du conjoint 2")}
               {renderFormField("mariage", "dateMariage", "Date de mariage", "date")}
@@ -271,6 +275,7 @@ function FormEC() {
           <div className="form-deces">
             <h2>Formulaire d'Acte de Décès</h2>
             <form onSubmit={(e) => handleSubmit(e, "deces")}>
+              {renderFormField("deces", "CIN", "CIN de demandeur")}
               {renderFormField("deces", "nomDefunt", "Nom du défunt")}
               {renderFormField("deces", "dateDeces", "Date de décès", "date")}
               {renderFormField("deces", "lieuDeces", "Lieu de décès")}

@@ -9,7 +9,7 @@ class Demandes extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'id_demande';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'CIN',

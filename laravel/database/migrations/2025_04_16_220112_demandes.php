@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('demandes' , function (Blueprint $table){
             $table -> id();
             $table -> string('CIN');
-            $table -> foreign('CIN')->references('CIN')->on('citoyens')->onDelete('cascade'); //foreign key citoyer
+            $table -> foreign('CIN')->references('CIN')->on('citoyens')->onDelete('cascade');
             $table->  date('date_demande'); 
             $table->  boolean('Archive')->nullable()->default(false);
             $table -> enum('status' , ['en_attente','approuvé','rejeté']);
