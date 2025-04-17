@@ -13,4 +13,19 @@ class CitoyensController extends Controller
              'succes' => true, 'data' => Citoyen::Orderby('created_at' , 'desc') -> get()
         ]);
     }
+    
+    public function check_citoyen(Request $request)
+    {
+    $validated = $request->validate([
+        'CIN' => 'required|string',
+    ]);
+
+    $exists = Citoyen::where('CIN', $request->CIN)->exists();
+
+    return response()->json([
+        'exists' => $exists
+    ]);
+    }
+
+   
 }

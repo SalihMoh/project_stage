@@ -93,7 +93,7 @@ function FormEC() {
     }
 
     try {
-      // Simulate API call
+      /*
       setShowRdvModal(true);
 
       // Reset form
@@ -101,7 +101,34 @@ function FormEC() {
         ...formData,
         [formType]: Object.fromEntries(
           Object.keys(formData[formType]).map(key => [key, ''])
-      )});
+      )}); 
+      */ 
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+
+      const response = await fetch("/api/check-citoyen" , {
+        method :'POST' , headers : {
+          'Content-Type' : 'application/json' ,
+          'X-CSRF-TOKEN': csrfToken,
+        }, body : JSON.stringify({
+          CIN : formData[formType].CIN
+        })
+      }) ;
+      const data = await response.json() ;
+      if (!data.exists) {
+        toast.error('Le CIN fourni n\'existe pas dans notre système', {
+          position: "top-right",
+          autoClose: 3000,
+        });
+        return;
+      }
+    setShowRdvModal(true);
+    setFormData({
+      ...formData,
+      [formType]: Object.fromEntries(
+        Object.keys(formData[formType]).map(key => [key, ''])
+      )
+    });
+
 
     } catch (error) {
       toast.error('Erreur, demande non envoyée', {
