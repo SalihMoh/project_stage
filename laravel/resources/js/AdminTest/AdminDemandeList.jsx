@@ -34,24 +34,20 @@ const DemandesTable = () => {
   useEffect(() => {
     let results = [...demandes];
 
-    // Filter by CIN
     if (searchCIN) {
       results = results.filter(demande => 
         demande.CIN.toLowerCase().includes(searchCIN.toLowerCase())
       );
     }
 
-    // Filter by type
     if (filterType !== "all") {
       results = results.filter(demande => demande.type === filterType);
     }
 
-    // Filter by status
     if (filterStatus !== "all") {
       results = results.filter(demande => demande.status === filterStatus);
     }
 
-    // Filter by date (fixed)
     if (filterDate) {
       results = results.filter(demande => {
         const demandeDate = new Date(demande.date_demande).toISOString().split('T')[0];
