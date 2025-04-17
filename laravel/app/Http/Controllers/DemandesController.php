@@ -13,6 +13,10 @@ class DemandesController extends Controller
     {
        return view('welcome');
     }
+    public function showform()
+    {
+       return view('welcome');
+    }
     
     public function index2()
     {
