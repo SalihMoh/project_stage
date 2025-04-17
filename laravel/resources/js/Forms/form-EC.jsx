@@ -32,6 +32,7 @@ function FormEC() {
   const [showRdvModal, setShowRdvModal] = useState(false);
   const [rdvTime, setRdvTime] = useState('');
   const [rdvDate, setRdvDate] = useState('');
+  const [submittedCIN, setSubmittedCIN] = useState(''); // ✅ NEW STATE
 
   const handleButtonClick = (formType, buttonName) => {
     setActiveForm(formType);
@@ -61,7 +62,7 @@ function FormEC() {
     const newErrors = {};
 
     Object.entries(currentForm).forEach(([field, value]) => {
-      if (!value.trim()) {
+      if (!value || (typeof value === 'string' && !value.trim())) {
         newErrors[field] = 'Ce champ est obligatoire';
       }
     });
@@ -84,36 +85,25 @@ function FormEC() {
       toast.error('Veuillez remplir tous les champs obligatoires', {
         position: "top-right",
         autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
       });
       return;
     }
 
     try {
-      /*
-      setShowRdvModal(true);
-
-      // Reset form
-      setFormData({
-        ...formData,
-        [formType]: Object.fromEntries(
-          Object.keys(formData[formType]).map(key => [key, ''])
-      )}); 
-      */ 
       const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
 
-      const response = await fetch("/api/check-citoyen" , {
-        method :'POST' , headers : {
-          'Content-Type' : 'application/json' ,
+      const response = await fetch("/api/check-citoyen", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
           'X-CSRF-TOKEN': csrfToken,
-        }, body : JSON.stringify({
-          CIN : formData[formType].CIN
+        },
+        body: JSON.stringify({
+          CIN: formData[formType].CIN
         })
-      }) ;
-      const data = await response.json() ;
+      });
+
+      const data = await response.json();
       if (!data.exists) {
         toast.error('Le CIN fourni n\'existe pas dans notre système', {
           position: "top-right",
@@ -121,40 +111,34 @@ function FormEC() {
         });
         return;
       }
-    setShowRdvModal(true);
-    setFormData({
-      ...formData,
-      [formType]: Object.fromEntries(
-        Object.keys(formData[formType]).map(key => [key, ''])
-      )
-    });
 
+      setSubmittedCIN(formData[formType].CIN); // ✅ Save CIN before reset
+
+      setShowRdvModal(true);
+      setFormData({
+        ...formData,
+        [formType]: Object.fromEntries(
+          Object.keys(formData[formType]).map(key => [key, ''])
+        )
+      });
 
     } catch (error) {
       toast.error('Erreur, demande non envoyée', {
         position: "top-right",
         autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
       });
       console.error('Erreur lors de la soumission', error);
     }
   };
 
-  const handleRdvSubmit = (e) => {
+  const handleRdvSubmit = async (e) => {
     e.preventDefault();
 
-    // Convert selected time to minutes since midnight
     const [selectedHours, selectedMinutes] = rdvTime.split(':').map(Number);
     const selectedTimeInMinutes = selectedHours * 60 + selectedMinutes;
+    const openingTime = 8 * 60 + 30;
+    const closingTime = 16 * 60 + 30;
 
-    // Define working hours (8:30 AM to 4:30 PM in minutes)
-    const openingTime = 8 * 60 + 30; // 8:30 AM
-    const closingTime = 16 * 60 + 30; // 4:30 PM
-
-    // Validate working hours
     if (selectedTimeInMinutes < openingTime || selectedTimeInMinutes > closingTime) {
       toast.error('Veuillez choisir un horaire entre 8h30 et 16h30', {
         position: "top-right",
@@ -163,7 +147,6 @@ function FormEC() {
       return;
     }
 
-    // Validate duration (15 minutes max)
     const endTimeInMinutes = selectedTimeInMinutes + 15;
     if (endTimeInMinutes > closingTime) {
       toast.error('Le rendez-vous doit se terminer avant 16h30', {
@@ -173,17 +156,55 @@ function FormEC() {
       return;
     }
 
-    // Format the selected time for display
-    const formattedTime = `${String(selectedHours).padStart(2, '0')}:${String(selectedMinutes).padStart(2, '0')}`;
+    try {
+      const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
+      const formattedTime = `${String(selectedHours).padStart(2, '0')}:${String(selectedMinutes).padStart(2, '0')}`;
 
-    toast.success(`Demande Rendez-vous confirmé à ${formattedTime}`, {
-      position: "top-right",
-      autoClose: 3000,
-    });
+      const demandeData = {
+        CIN: submittedCIN,
+        type: activeButton,
+        date_demande: rdvDate,
+        Archive: false,
+        status: "en_attente"
+      };
 
-    setShowRdvModal(false);
-    setRdvDate('');
-    setRdvTime('');
+      console.log("Sending demandeData:", demandeData);
+
+      const response = await fetch('/api/demandes', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRF-TOKEN': csrfToken,
+        },
+        body: JSON.stringify(demandeData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Erreur lors de la sauvegarde');
+      }
+
+      toast.success(`Demande Rendez-vous confirmé à ${formattedTime} le ${rdvDate}`, {
+        position: "top-right",
+        autoClose: 3000,
+      });
+
+      setShowRdvModal(false);
+      setRdvDate('');
+      setRdvTime('');
+      setSubmittedCIN(''); // ✅ Clear stored CIN
+      setFormData({
+        naissance: { CIN: '', nomComplet: '', dateNaissance: '', lieuNaissance: '' },
+        mariage: { CIN: '', conjoint1: '', conjoint2: '', dateMariage: '', lieuMariage: '' },
+        deces: { CIN: '', nomDefunt: '', dateDeces: '', lieuDeces: '', causeDeces: '' }
+      });
+
+    } catch (error) {
+      toast.error('Erreur lors de la confirmation du rendez-vous', {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      console.error('Error:', error);
+    }
   };
 
   const renderFormField = (formType, fieldName, label, type = 'text') => {

@@ -23,7 +23,7 @@ Route::get('/test', [DemandesController::class, 'test']);
 
 Route::prefix('api')->middleware([VerifyCsrfToken::class])->group(function () {
 
-    Route::post('/check-citoyen', [CitoyensController::class, 'check_citoyen']);
+    Route::post('/check-citoyen', [CitoyensController::class, 'check_citoyen']) ;
 
 
     Route::get('/demandes/{id}', [DemandesController::class, 'show']);

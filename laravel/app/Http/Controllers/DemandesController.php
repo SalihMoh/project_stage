@@ -17,6 +17,12 @@ class DemandesController extends Controller
     {
        return view('welcome');
     }
+    
+    public function index2()
+{
+    $demandes = Demandes::all();
+    return response()->json($demandes);
+}
 
    public function index ()
    {
@@ -29,8 +35,8 @@ class DemandesController extends Controller
    public function store (Request $request)
    {
        $validator = Validator::make($request -> all(), [
-        'CIN' => 'required|string|regex:/^[A-Za-z]{2}[0-9]{6}$/',
-        'type' => 'required|in:naissance,mariage,décès',
+        'CIN' => 'required|string|exists:citoyens,CIN' ,
+        'type' => 'required|string',
         'date_demande' => 'date',
         'Archive' => 'Bool',
         'status' => 'in:en_attente,approuvé,rejeté'
