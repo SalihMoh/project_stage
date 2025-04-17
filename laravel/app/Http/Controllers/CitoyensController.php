@@ -13,6 +13,10 @@ class CitoyensController extends Controller
              'succes' => true, 'data' => Citoyen::Orderby('created_at' , 'desc') -> get()
         ]);
     }
+    public function AdmCL ()
+    {
+        return view('welcome');
+    }
     
     public function check_citoyen(Request $request)
     {

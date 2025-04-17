@@ -9,12 +9,7 @@ use Carbon\Carbon;
 
 class DemandesController extends Controller
 {
-    public function showForm()
-    {
-        return view('welcome');
-    }
-
-    public function test()
+    public function AdmDML()
     {
        return view('welcome');
     }

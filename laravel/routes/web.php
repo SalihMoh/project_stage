@@ -17,7 +17,10 @@ Route::get('/demandes', [DemandesController::class, 'index']);
 Route::get('/citoyens', [CitoyensController::class, 'index'])->name('citoyens.index');
 
 
-Route::get('/test', [DemandesController::class, 'test']);
+Route::get('/AdmDML', [DemandesController::class, 'AdmDML']);
+Route::get('/AdmCL', [CitoyensController::class, 'AdmCL']);
+
+
 
 
 
