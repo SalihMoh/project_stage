@@ -6,7 +6,7 @@ import Header from './Header/Header';
 import Acceuil from './Home/Acceuil';
 import Footer from './Footer/Footer';
 import FormEC  from './Forms/form-EC';
-import Test from '../js/testing/Test.jsx';
+import DemandesTable from '../js/AdminTest/AdminDemandeList.jsx';
 
 function App() {
     return (
@@ -20,7 +20,7 @@ function App() {
                 <Route path='/form-U'  element= { <formU />} />
                 <Route path='/form-TL' element= { <form-TL />} />
                 <Route path='/form-S'  element= { <from-S />} />
-                <Route path='/test' element = { <Test />} />
+                <Route path='/test' element = { <DemandesTable />} />
             </Routes>  
 
             <Footer />
