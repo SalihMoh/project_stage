@@ -112,7 +112,7 @@ function FormEC() {
         return;
       }
 
-      setSubmittedCIN(formData[formType].CIN); // ✅ Save CIN before reset
+      setSubmittedCIN(formData[formType].CIN); 
 
       setShowRdvModal(true);
       setFormData({
@@ -158,12 +158,12 @@ function FormEC() {
 
     try {
       const csrfToken = document.querySelector('meta[name="csrf-token"]').content;
-      const formattedTime = `${String(selectedHours).padStart(2, '0')}:${String(selectedMinutes).padStart(2, '0')}`;
+      const fullRdvDate = `${rdvDate} ${String(selectedHours).padStart(2, '0')}:${String(selectedMinutes).padStart(2, '0')}:00`;
 
       const demandeData = {
         CIN: submittedCIN,
         type: activeButton,
-        date_demande: rdvDate,
+        date_demande: fullRdvDate,
         Archive: false,
         status: "en_attente"
       };
@@ -183,7 +183,7 @@ function FormEC() {
         throw new Error('Erreur lors de la sauvegarde');
       }
 
-      toast.success(`Demande Rendez-vous confirmé à ${formattedTime} le ${rdvDate}`, {
+      toast.success(`Demande Rendez-vous confirmé à ${fullRdvDate}`, {
         position: "top-right",
         autoClose: 3000,
       });
@@ -191,7 +191,7 @@ function FormEC() {
       setShowRdvModal(false);
       setRdvDate('');
       setRdvTime('');
-      setSubmittedCIN(''); // ✅ Clear stored CIN
+      setSubmittedCIN('');
       setFormData({
         naissance: { CIN: '', nomComplet: '', dateNaissance: '', lieuNaissance: '' },
         mariage: { CIN: '', conjoint1: '', conjoint2: '', dateMariage: '', lieuMariage: '' },

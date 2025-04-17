@@ -37,7 +37,7 @@ class DemandesController extends Controller
        $validator = Validator::make($request -> all(), [
         'CIN' => 'required|string|exists:citoyens,CIN' ,
         'type' => 'required|string',
-        'date_demande' => 'date',
+        'date_demande' => 'required|date_format:Y-m-d H:i:s',
         'Archive' => 'Bool',
         'status' => 'in:en_attente,approuvé,rejeté'
        ]

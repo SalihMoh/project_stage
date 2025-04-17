@@ -40,10 +40,11 @@ const DemandesTable = () => {
               <tr key={demande.id}>
                 <td>{demande.CIN}</td>
                 <td>{demande.type}</td>
-                <td>{new Date(demande.date_demande).toLocaleDateString()}</td>
+                <td>{new Date(demande.date_demande).toLocaleString()}</td>
                 <td>{demande.status}</td>
                 <td>{new Date(demande.created_at).toLocaleString()}</td> 
                 <td>{new Date(demande.updated_at).toLocaleString()}</td> 
+                
               </tr>
             ))
           ) : (
