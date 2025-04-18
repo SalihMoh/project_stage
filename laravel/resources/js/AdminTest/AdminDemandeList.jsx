@@ -17,7 +17,6 @@ const DemandesTable = () => {
         if (response.data && Array.isArray(response.data.data)) {
           const formattedDemandes = response.data.data.map(demande => ({
             ...demande,
-
             date_demande: new Date(demande.date_demande).toISOString().split('T')[0]
           }));
           setDemandes(formattedDemandes);
@@ -59,6 +58,19 @@ const DemandesTable = () => {
     setFilteredDemandes(results);
   }, [demandes, searchCIN, filterType, filterStatus, filterDate]);
 
+  // Function to determine status cell styling
+  const getStatusStyle = (status) => {
+    switch (status) {
+      case "en_attente":
+        return { backgroundColor: "yellow", fontWeight: "bold" };
+      case "approuvé":
+        return { backgroundColor: "#4CAF50", color: "white", fontWeight: "bold" };
+      case "rejeté":
+        return { backgroundColor: "#f44336", color: "white", fontWeight: "bold" };
+      default:
+        return {};
+    }
+  };
 
   const uniqueTypes = [...new Set(demandes.map(demande => demande.type))];
   const uniqueStatuses = [...new Set(demandes.map(demande => demande.status))];
@@ -119,7 +131,9 @@ const DemandesTable = () => {
                 <td>{demande.CIN}</td>
                 <td>{demande.type}</td>
                 <td>{new Date(demande.date_demande).toLocaleDateString()}</td>
-                <td>{demande.status}</td>
+                <td style={getStatusStyle(demande.status)}>
+                  {demande.status}
+                </td>
                 <td>{new Date(demande.created_at).toLocaleString()}</td>
                 <td>{new Date(demande.updated_at).toLocaleString()}</td>
               </tr>

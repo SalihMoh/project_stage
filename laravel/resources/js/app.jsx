@@ -8,6 +8,7 @@ import Footer from './Footer/Footer';
 import FormEC  from './Forms/form-EC';
 import DemandesTable from '../js/AdminTest/AdminDemandeList.jsx';
 import CitoyensTable from './AdminTest/AdminCitoyenList.jsx';
+import EspaceAdmin from './AdminTest/EspaceAdmin.jsx';
 
 function App() {
     return (
@@ -16,7 +17,7 @@ function App() {
             <Header />
 
             <Routes>
-                <Route path="/" element={<Acceuil />} />
+                <Route path="/" element={[ <EspaceAdmin />,<Acceuil />]} />
                 <Route path='/form-EC' element= { <FormEC />} />
                 <Route path='/form-U'  element= { <formU />} />
                 <Route path='/form-TL' element= { <form-TL />} />

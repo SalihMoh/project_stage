@@ -7,7 +7,6 @@ const CitoyensTable = () => {
   const [filteredCitoyens, setFilteredCitoyens] = useState([]);
   const [searchCIN, setSearchCIN] = useState("");
   const [searchNom, setSearchNom] = useState("");
-  const [searchTelephone, setSearchTelephone] = useState("");
 
   useEffect(() => {
     axios
