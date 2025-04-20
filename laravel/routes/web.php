@@ -14,19 +14,17 @@ Route::get('/form-EC', [DemandesController::class, 'showForm']);
 
 Route::get('/demandes', [DemandesController::class, 'index']);
 Route::post('/demandes/by-cin', [DemandesController::class, 'check_dmd_citoyen']);
-
-
-
-Route::get('/citoyens', [CitoyensController::class, 'index'])->name('citoyens.index');
 Route::put('/demandes/{id}', [DemandesController::class, 'update']);
 Route::delete('/demandes/{id}', [DemandesController::class, 'destroy']);
 
+Route::get('/citoyens', [CitoyensController::class, 'index']);
+Route::post('/citoyens', [CitoyensController::class, 'store']);
+Route::put('/citoyens/{id}', [CitoyensController::class, 'update']);
+Route::delete('/citoyens/{id}', [CitoyensController::class, 'destroy']);
 
 
 Route::get('/AdmDML', [DemandesController::class, 'AdmDML']);
 Route::get('/AdmCL', [CitoyensController::class, 'AdmCL']);
-
-
 
 
 
