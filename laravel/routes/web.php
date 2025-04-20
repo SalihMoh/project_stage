@@ -16,7 +16,11 @@ Route::get('/demandes', [DemandesController::class, 'index']);
 Route::post('/demandes/by-cin', [DemandesController::class, 'check_dmd_citoyen']);
 
 
+
 Route::get('/citoyens', [CitoyensController::class, 'index'])->name('citoyens.index');
+Route::put('/demandes/{id}', [DemandesController::class, 'update']);
+Route::delete('/demandes/{id}', [DemandesController::class, 'destroy']);
+
 
 
 Route::get('/AdmDML', [DemandesController::class, 'AdmDML']);

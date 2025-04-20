@@ -9,110 +9,92 @@ const DemandesTable = () => {
   const [filterType, setFilterType] = useState("all");
   const [filterStatus, setFilterStatus] = useState("all");
   const [filterDate, setFilterDate] = useState("");
+  const statusOptions = ["en_attente", "approuvé", "rejeté"];
 
-  useEffect(() => {
-    axios
-      .get("http://127.0.0.1:8000/demandes")
+  const fetchDemandes = () => {
+    axios.get("http://127.0.0.1:8000/demandes")
       .then((response) => {
-        if (response.data && Array.isArray(response.data.data)) {
-          const formattedDemandes = response.data.data.map(demande => ({
-            ...demande,
-            date_demande: new Date(demande.date_demande).toISOString().split('T')[0]
-          }));
-          setDemandes(formattedDemandes);
-          setFilteredDemandes(formattedDemandes);
-        } else {
-          console.error("Expected an array of demandes in response.data.data");
-        }
+        const formatted = response.data.data.map(d => ({
+          ...d,
+          date_demande: new Date(d.date_demande).toISOString().split('T')[0]
+        }));
+        setDemandes(formatted);
+        setFilteredDemandes(formatted);
       })
-      .catch((error) => {
-        console.error("Error fetching demandes:", error);
-      });
-  }, []);
+      .catch((error) => console.error("Erreur récupération:", error));
+  };
+
+  useEffect(fetchDemandes, []);
 
   useEffect(() => {
     let results = [...demandes];
-
     if (searchCIN) {
-      results = results.filter(demande => 
-        demande.CIN.toLowerCase().includes(searchCIN.toLowerCase())
-      );
+      results = results.filter(d => d.CIN.toLowerCase().includes(searchCIN.toLowerCase()));
     }
-
     if (filterType !== "all") {
-      results = results.filter(demande => demande.type === filterType);
+      results = results.filter(d => d.type === filterType);
     }
-
     if (filterStatus !== "all") {
-      results = results.filter(demande => demande.status === filterStatus);
+      results = results.filter(d => d.status === filterStatus);
     }
-
     if (filterDate) {
-      results = results.filter(demande => {
-        const demandeDate = new Date(demande.date_demande).toISOString().split('T')[0];
+      results = results.filter(d => {
+        const demandeDate = new Date(d.date_demande).toISOString().split('T')[0];
         const selectedDate = new Date(filterDate).toISOString().split('T')[0];
         return demandeDate === selectedDate;
       });
     }
-
     setFilteredDemandes(results);
   }, [demandes, searchCIN, filterType, filterStatus, filterDate]);
 
-  // Function to determine status cell styling
   const getStatusStyle = (status) => {
     switch (status) {
-      case "en_attente":
-        return { backgroundColor: "yellow", fontWeight: "bold" };
-      case "approuvé":
-        return { backgroundColor: "#4CAF50", color: "white", fontWeight: "bold" };
-      case "rejeté":
-        return { backgroundColor: "#f44336", color: "white", fontWeight: "bold" };
-      default:
-        return {};
+      case "en_attente": return { backgroundColor: "yellow", fontWeight: "bold" };
+      case "approuvé": return { backgroundColor: "#4CAF50", color: "white", fontWeight: "bold" };
+      case "rejeté": return { backgroundColor: "#f44336", color: "white", fontWeight: "bold" };
+      default: return {};
     }
   };
 
-  const uniqueTypes = [...new Set(demandes.map(demande => demande.type))];
-  const uniqueStatuses = [...new Set(demandes.map(demande => demande.status))];
+  const cycleStatus = (current) => {
+    const idx = statusOptions.indexOf(current);
+    return statusOptions[(idx + 1) % statusOptions.length];
+  };
+
+  const handleStatusClick = (id, currentStatus) => {
+    const newStatus = cycleStatus(currentStatus);
+    axios.put(`http://127.0.0.1:8000/demandes/${id}`, { status: newStatus })
+      .then(() => fetchDemandes())
+      .catch((err) => console.error("Erreur update statut:", err));
+  };
+
+  const handleDelete = (id) => {
+    if (window.confirm("Voulez-vous vraiment supprimer cette demande ?")) {
+      axios.delete(`http://127.0.0.1:8000/demandes/${id}`)
+        .then(() => fetchDemandes())
+        .catch((err) => console.error("Erreur suppression:", err));
+    }
+  };
+
+  const uniqueTypes = [...new Set(demandes.map(d => d.type))];
+  const uniqueStatuses = [...new Set(demandes.map(d => d.status))];
 
   return (
     <div className="ListDemandes">
       <h1>Liste Des Demandes</h1>
       <div className="div-Filtre">
-        <input 
-          placeholder="Recherche CIN"
-          value={searchCIN}
-          onChange={(e) => setSearchCIN(e.target.value)}
-        />
-        
-        <select
-          value={filterType}
-          onChange={(e) => setFilterType(e.target.value)}
-        >
+        <input placeholder="Recherche CIN" value={searchCIN} onChange={(e) => setSearchCIN(e.target.value)} />
+        <select value={filterType} onChange={(e) => setFilterType(e.target.value)}>
           <option value="all">Tous les types</option>
-          {uniqueTypes.map(type => (
-            <option key={type} value={type}>{type}</option>
-          ))}
+          {uniqueTypes.map(type => <option key={type} value={type}>{type}</option>)}
         </select>
-        
-        <select
-          value={filterStatus}
-          onChange={(e) => setFilterStatus(e.target.value)}
-        >
+        <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)}>
           <option value="all">Tous les statuts</option>
-          {uniqueStatuses.map(status => (
-            <option key={status} value={status}>{status}</option>
-          ))}
+          {uniqueStatuses.map(status => <option key={status} value={status}>{status}</option>)}
         </select>
-        
-        <input
-          type="date"
-          value={filterDate}
-          onChange={(e) => setFilterDate(e.target.value)}
-          className="date-filter-input"
-        />
+        <input type="date" value={filterDate} onChange={(e) => setFilterDate(e.target.value)} className="date-filter-input" />
       </div>
-      
+
       <table>
         <thead>
           <tr>
@@ -120,8 +102,9 @@ const DemandesTable = () => {
             <th>Type</th>
             <th>Date Demande</th>
             <th>Status</th>
-            <th>Created At</th>
-            <th>Updated At</th>
+            <th>Créée</th>
+            <th>Modifiée</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -131,16 +114,24 @@ const DemandesTable = () => {
                 <td>{demande.CIN}</td>
                 <td>{demande.type}</td>
                 <td>{new Date(demande.date_demande).toLocaleDateString()}</td>
-                <td style={getStatusStyle(demande.status)}>
+                <td
+                  style={{ ...getStatusStyle(demande.status), cursor: "pointer" }}
+                  onClick={() => handleStatusClick(demande.id, demande.status)}
+                  title="Cliquez pour changer le statut"
+                >
                   {demande.status}
                 </td>
                 <td>{new Date(demande.created_at).toLocaleString()}</td>
                 <td>{new Date(demande.updated_at).toLocaleString()}</td>
+                <td>
+                  {/* Placeholder for edit logic if needed */}
+                  <button className="delete-btn" onClick={() => handleDelete(demande.id)}>Supprimer</button>
+                </td>
               </tr>
             ))
           ) : (
             <tr>
-              <td colSpan="6">Aucune demande trouvée.</td>
+              <td colSpan="7">Aucune demande trouvée.</td>
             </tr>
           )}
         </tbody>

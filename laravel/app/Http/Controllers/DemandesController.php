@@ -7,19 +7,19 @@ use App\Models\Demandes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
-use Laravel\Ui\Presets\React;
 
 class DemandesController extends Controller
 {
     public function AdmDML()
     {
-       return view('welcome');
+        return view('welcome');
     }
+
     public function showform()
     {
-       return view('welcome');
+        return view('welcome');
     }
-    
+
     public function index2()
     {
         $demandes = Demandes::all();
@@ -33,7 +33,7 @@ class DemandesController extends Controller
             'data' => Demandes::orderBy('created_at', 'desc')->get()
         ]);
     }
-   
+
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -51,11 +51,9 @@ class DemandesController extends Controller
             ], 422);
         }
 
-        // Tdrha Carbon
         $requestDate = Carbon::parse($request->date_demande);
         $dateOnly = $requestDate->format('Y-m-d');
 
-        // limit 100 f nhar
         $dailyCount = Demandes::whereDate('date_demande', $dateOnly)->count();
         if ($dailyCount >= 100) {
             return response()->json([
@@ -64,7 +62,6 @@ class DemandesController extends Controller
             ], 422);
         }
 
-        // wach citoyen 3ndo demande f dak nhar
         $existingDemande = Demandes::where('CIN', $request->CIN)
             ->whereDate('date_demande', $dateOnly)
             ->first();
@@ -89,6 +86,109 @@ class DemandesController extends Controller
             'data' => $demande
         ], 201);
     }
+
+    public function show($id)
+    {
+        $demande = Demandes::find($id);
+
+        if (!$demande) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Demande not found'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $demande
+        ]);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $demande = Demandes::find($id);
+
+        if (!$demande) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Demande not found'
+            ], 404);
+        }
+
+        $validator = Validator::make($request->all(), [
+            'type' => 'sometimes|string',
+            'date_demande' => 'sometimes|date_format:Y-m-d H:i:s',
+            'Archive' => 'sometimes|boolean',
+            'status' => 'sometimes|in:en_attente,approuvé,rejeté'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $demande->update($request->all());
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Demande updated',
+            'data' => $demande
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        $demande = Demandes::find($id);
+
+        if (!$demande) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Demande not found'
+            ], 404);
+        }
+
+        $demande->delete();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Demande deleted successfully'
+        ]);
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'status' => 'required|in:en_attente,approuvé,rejeté'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+
+        $demande = Demandes::find($id);
+
+        if (!$demande) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Demande not found'
+            ], 404);
+        }
+
+        $demande->status = $request->status;
+        $demande->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Status updated successfully',
+            'data' => $demande
+        ]);
+    }
+
     public function check_dmd_citoyen(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -96,7 +196,7 @@ class DemandesController extends Controller
         ], [
             'CIN.exists' => 'The provided CIN does not exist in our records'
         ]);
-    
+
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
@@ -104,20 +204,20 @@ class DemandesController extends Controller
                 'errors' => $validator->errors()
             ], 422);
         }
-    
+
         $cin = $request->input('CIN');
-    
+
         $citoyen = Citoyen::with(['demandes' => function($query) {
             $query->orderBy('date_demande', 'desc');
         }])->where('CIN', $cin)->first();
-    
+
         if (!$citoyen) {
             return response()->json([
                 'success' => false,
                 'message' => 'Citizen not found'
             ], 404);
         }
-    
+
         if ($citoyen->demandes->isEmpty()) {
             return response()->json([
                 'success' => true,
@@ -125,7 +225,7 @@ class DemandesController extends Controller
                 'data' => []
             ]);
         }
-    
+
         return response()->json([
             'success' => true,
             'data' => $citoyen->demandes
