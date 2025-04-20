@@ -11,7 +11,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             CitoyenSeeder::class,
             DemandeSeeder::class
-            // Add other seeders here if needed
+            
         ]);
     }
 }

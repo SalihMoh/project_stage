@@ -3,7 +3,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const FreeMap = () => {
-  const position = [30.374203743396134, -9.528900268339903]; // Dcheira El Jihadia
+  const position = [30.374203743396134, -9.528900268339903];
   
   return (
     <MapContainer 

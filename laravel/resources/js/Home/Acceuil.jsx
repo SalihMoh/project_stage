@@ -70,7 +70,7 @@ return (<div className="div-holder">
                 Le tremblement de terre de 1960 qui a frappé la ville d'Agadir et la Marche Verte de 1975 ont été les deux principaux facteurs du développement de Dchira Jahidiya, conformément à la trajectoire de développement du Pôle Urbain du Grand Agadir.
                 Dchira était un petit village témoin de l'installation humaine car il était situé sur la rive droite de la vallée du Souss, au nord-ouest de la plaine du Souss, où l'agriculture était l'activité caractéristique de l'installation humaine. Il a ensuite été rattaché à la communauté rurale d'Ait Melloul, puis élevé au rang de communauté urbaine lors du découpage administratif de 1992.
             </p>
-        <div className="info-COM">
+        <div className="info-COM ">
             <h3>Commune Dcheira-Jihadia</h3>
             
             <div><img src={logo5} alt="commune" /><FreeMap /></div>
