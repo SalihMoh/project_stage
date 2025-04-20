@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import '../../css/Forms/FormEC.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Suivre_dmd_popup from "../Suivre_dmd/Suivre_dmd";
+
 
 function FormEC() {
   const [activeForm, setActiveForm] = useState("naissance");

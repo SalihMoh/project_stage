@@ -1,21 +1,116 @@
-div > table , td , tr , th  {
-    border: 1px solid black;
-    border-collapse: collapse;
+/* DemandeList.css */
+
+/* General Styles */
+.ListDemandes {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    background-color: #f4f9f4;
+    border-radius: 8px;
+  }
+  
+  h1 {
     text-align: center;
-
-}
-div > table {
-    width: 25cm;
-    margin-top: 0.4cm ;
-}
-div.ListDemandes {
+    color: #4CAF50; /* Light Green */
+  }
+  
+  /* Filter Section */
+  .div-Filtre {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-
-div.div-Filtre > select {
-    margin-left: 0.4cm;
-
-}
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .div-Filtre input, .div-Filtre select {
+    padding: 10px;
+    margin-right: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .date-filter-input {
+    width: 150px;
+  }
+  
+  /* Table Styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    background-color: #f1f1f1;
+    color: #4CAF50; /* Light Green */
+  }
+  
+  tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  /* Status Cell Styles */
+  td[style*="yellow"] {
+    background-color: #ffeb3b; /* Yellow */
+    font-weight: bold;
+  }
+  
+  td[style*="green"] {
+    background-color: #81c784; /* Light Green */
+    color: white;
+    font-weight: bold;
+  }
+  
+  td[style*="red"] {
+    background-color: #e57373; /* Light Red */
+    color: white;
+    font-weight: bold;
+  }
+  
+  td:hover {
+    cursor: pointer;
+    opacity: 0.8;
+  }
+  
+  /* Button Styles */
+  .delete-btn {
+    background-color: #f44336; /* Red */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e53935; /* Darker Red */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .div-Filtre {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  
+    .div-Filtre input,
+    .div-Filtre select {
+      margin-bottom: 10px;
+    }
+  
+    table {
+      font-size: 14px;
+    }
+  
+    th, td {
+      padding: 8px;
+    }
+  }
+  

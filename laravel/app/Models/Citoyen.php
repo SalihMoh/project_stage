@@ -17,6 +17,11 @@ class Citoyen extends Model
         'telephone'
     ];
 
+    public function demandes()
+        {
+    return $this->hasMany(Demandes::class, 'CIN', 'CIN');
+        }
+
     protected static function newFactory()
     {
         return \Database\Factories\CitoyenFactory::new();

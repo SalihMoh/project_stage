@@ -7,6 +7,7 @@ import logo3 from '../../../img/taxicon.png';
 import logo4 from '../../../img/signalement.png';
 import logo5 from '../../../img/9asrbaladi.jpg';
 import FreeMap from "./MapContainer";
+import SuivreDmdPopup from "../Suivre_dmd/Suivre_dmd.jsx";
 
 function Acceuil () {
 return (<div className="div-holder">
@@ -30,17 +31,18 @@ return (<div className="div-holder">
                 <a href="/form-EC">Demander</a>
 
             </div>
-
+            {/*} 
             <div className="urbanisme">
                 <div className="service-icon">
                     <img src={logo2} alt="img1" />
-                    <p>urbanisme</p> 
+                    <p>Suivi de votre demande</p> 
                 </div>
-                <p>Permis de construire et autorisations</p>
-                <a href="/form-U">Demander</a>
+                <p>Permis de suivre votre demande par CIN</p>
+                <a href="/Suivi_Demande">Demander</a>
             </div>
 
-            <div className="taxe-locale">
+          
+           <div className="taxe-locale">
                 <div className="service-icon">
                     <img src={logo3} alt="img2" />
                     <p>taxe-locale</p>
@@ -49,6 +51,8 @@ return (<div className="div-holder">
                 <a href="/form-TL">Demander</a>
 
             </div>
+            {*/}
+            
             <div className="signalement">
                 <div className="service-icon">
                     <img src={logo4} alt="img3" />
@@ -57,8 +61,13 @@ return (<div className="div-holder">
                 <p>Signaler un problème dans votre quartier</p>
                 <a href="form-S">Demander</a>
             </div>
+            
         </div>
         
+        <div key="popup-container">
+          <SuivreDmdPopup key="suivre-demande-popup" />
+        </div>
+       
         
         <div className="info-DEJ">
             <h3>Info sur Dcheira-el-Jihadia</h3>

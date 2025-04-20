@@ -24,7 +24,6 @@ class Demandes extends Model
         'Archive' => 'boolean'
     ];
 
-    // Status constants
     public const STATUS_PENDING = 'en_attente';
     public const STATUS_APPROVED = 'approuvé';
     public const STATUS_REJECTED = 'rejeté';
