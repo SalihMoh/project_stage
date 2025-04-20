@@ -19,9 +19,6 @@ function App() {
             <Routes>
                 <Route path="/" element={[ <EspaceAdmin />,<Acceuil />]} />
                 <Route path='/form-EC' element= { <FormEC />} />
-                <Route path='/form-U'  element= { <formU />} />
-                <Route path='/form-TL' element= { <form-TL />} />
-                <Route path='/form-S'  element= { <from-S />} />
                 <Route path='/AdmDML' element = { <DemandesTable />} />
                 <Route path='/AdmCL' element = { <CitoyensTable />} />
 

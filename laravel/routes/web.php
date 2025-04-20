@@ -13,6 +13,8 @@ Route::get('/form-EC', [DemandesController::class, 'showForm']);
 
 
 Route::get('/demandes', [DemandesController::class, 'index']);
+Route::post('/demandes/by-cin', [DemandesController::class, 'check_dmd_citoyen']);
+
 
 Route::get('/citoyens', [CitoyensController::class, 'index'])->name('citoyens.index');
 

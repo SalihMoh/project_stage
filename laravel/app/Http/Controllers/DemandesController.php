@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Citoyen;
 use App\Models\Demandes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Carbon\Carbon;
+use Laravel\Ui\Presets\React;
 
 class DemandesController extends Controller
 {
@@ -86,5 +88,47 @@ class DemandesController extends Controller
             'message' => 'Demande enregistrée',
             'data' => $demande
         ], 201);
+    }
+    public function check_dmd_citoyen(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'CIN' => 'required|string|exists:citoyens,CIN',
+        ], [
+            'CIN.exists' => 'The provided CIN does not exist in our records'
+        ]);
+    
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Validation failed',
+                'errors' => $validator->errors()
+            ], 422);
+        }
+    
+        $cin = $request->input('CIN');
+    
+        $citoyen = Citoyen::with(['demandes' => function($query) {
+            $query->orderBy('date_demande', 'desc');
+        }])->where('CIN', $cin)->first();
+    
+        if (!$citoyen) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Citizen not found'
+            ], 404);
+        }
+    
+        if ($citoyen->demandes->isEmpty()) {
+            return response()->json([
+                'success' => true,
+                'message' => 'No demands found for this CIN',
+                'data' => []
+            ]);
+        }
+    
+        return response()->json([
+            'success' => true,
+            'data' => $citoyen->demandes
+        ]);
     }
 }
