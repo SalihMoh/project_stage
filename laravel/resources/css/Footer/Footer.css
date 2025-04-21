@@ -1,12 +1,48 @@
 .footer {
-    background-color: rgb(16, 151, 27);
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    margin-top: 1cm;
+    background-color: rgb(22, 202, 37);
+    color: white;
+    padding: 1px;
+  }
+  
+  .footer-container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  
+  .footer-inner {
     display: flex;
-    justify-content: space-between;
-}
-.footer > p {
-    margin-left: 0.5cm;
-    margin-right: 0.5cm;
-    padding: 0.3cm;
-}
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .footer-inner p {
+    margin-bottom: 0rem;
+  }
+  
+  .social-links {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+  }
+  
+  .social-icon {
+    color: white;
+    font-size: 1.25rem;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icon:hover {
+    color: white; 
+  }
+  
+
+  @media (min-width: 768px) {
+    .footer-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      text-align: left;
+    }
+  }
+  

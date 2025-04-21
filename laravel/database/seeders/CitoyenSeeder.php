@@ -19,6 +19,15 @@ class CitoyenSeeder extends Seeder
             'Nom_familliale' => 'Salih',
             'Adresse' => 'Agadir',
             'telephone' => '0612345678'
+
+        ]);
+        Citoyen::create([
+            'CIN' => 'JY51861',
+            'Nom_personelle' => 'Mustapha',
+            'Nom_familliale' => 'Ihddadn',
+            'Adresse' => 'Agadir',
+            'telephone' => '0643633098'
+            
         ]);
     }
 }
