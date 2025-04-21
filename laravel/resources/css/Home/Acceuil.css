@@ -1,4 +1,23 @@
-
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
 .div-bienvenu {
     display: flex;
     flex-direction: column;
@@ -6,12 +25,25 @@
     margin-top: 0.5cm;
     padding: 2cm;
     color: white;
+    animation: fadeIn 1s ease-in;
 
 }
-.div-bienvenu > h3 , p , button {
-    
+
+.div-bienvenu > .buttons {
+    background-color: transparent;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.div-bienvenu > h3, 
+.div-bienvenu > p, 
+.div-bienvenu > button {
     justify-content: center;
     padding: 0.5cm;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
 }
 .div-bienvenu > .buttons > button {
     padding: 12px 24px;
@@ -21,6 +53,13 @@
     font-size: 16px;
     cursor: pointer;
     background-color: transparent;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.div-bienvenu > .buttons > button:hover {
+    transform: scale(1.05);
+    background-color: rgba(255, 255, 255, 0.2);
 }
 .div-bienvenu > div.buttons > button > a { color: black;}
 
