@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import '../../css/Admin/DemandeList.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const DemandesTable = () => {
   const [demandes, setDemandes] = useState([]);
@@ -21,7 +23,13 @@ const DemandesTable = () => {
         setDemandes(formatted);
         setFilteredDemandes(formatted);
       })
-      .catch((error) => console.error("Erreur récupération:", error));
+      .catch((error) => {
+        console.error("Erreur récupération:", error);
+        toast.error("Erreur lors du chargement des demandes", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      });
   };
 
   useEffect(fetchDemandes, []);
@@ -64,23 +72,79 @@ const DemandesTable = () => {
   const handleStatusClick = (id, currentStatus) => {
     const newStatus = cycleStatus(currentStatus);
     axios.put(`http://127.0.0.1:8000/demandes/${id}`, { status: newStatus })
-      .then(() => fetchDemandes())
-      .catch((err) => console.error("Erreur update statut:", err));
+      .then(() => {
+        fetchDemandes();
+        toast.success(`Statut changé à ${newStatus}`, {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      })
+      .catch((err) => {
+        console.error("Erreur update statut:", err);
+        toast.error("Erreur lors du changement de statut", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      });
   };
 
   const handleDelete = (id) => {
-    if (window.confirm("Voulez-vous vraiment supprimer cette demande ?")) {
-      axios.delete(`http://127.0.0.1:8000/demandes/${id}`)
-        .then(() => fetchDemandes())
-        .catch((err) => console.error("Erreur suppression:", err));
-    }
+    toast.warning(
+      <div>
+        <p>Voulez-vous vraiment supprimer cette demande ?</p>
+        <div style={{ display: 'flex', justifyContent: 'space-around', marginTop: '10px' }}>
+          <button 
+            onClick={() => {
+              toast.dismiss();
+              confirmDelete(id);
+            }}
+            style={{ padding: '5px 10px', background: '#f44336', color: 'white', border: 'none', borderRadius: '4px' }}
+          >
+            Oui, supprimer
+          </button>
+          <button 
+            onClick={() => toast.dismiss()}
+            style={{ padding: '5px 10px', background: '#4CAF50', color: 'white', border: 'none', borderRadius: '4px' }}
+          >
+            Annuler
+          </button>
+        </div>
+      </div>,
+      {
+        position: "top-center",
+        autoClose: false,
+        closeButton: false,
+        draggable: false,
+        closeOnClick: false,
+      }
+    );
+  };
+
+  const confirmDelete = (id) => {
+    axios.delete(`http://127.0.0.1:8000/demandes/${id}`)
+      .then(() => {
+        fetchDemandes();
+        toast.success("Demande supprimée avec succès", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      })
+      .catch((err) => {
+        console.error("Erreur suppression:", err);
+        toast.error("Erreur lors de la suppression", {
+          position: "top-right",
+          autoClose: 3000,
+        });
+      });
   };
 
   const uniqueTypes = [...new Set(demandes.map(d => d.type))];
   const uniqueStatuses = [...new Set(demandes.map(d => d.status))];
 
   return (
-    <div className="ListDemandes">
+    <div className="ListDemandes">  
+
+      <ToastContainer />
       <h1>Liste Des Demandes</h1>
       <div className="div-Filtre">
         <input placeholder="Recherche CIN" value={searchCIN} onChange={(e) => setSearchCIN(e.target.value)} />
@@ -124,7 +188,6 @@ const DemandesTable = () => {
                 <td>{new Date(demande.created_at).toLocaleString()}</td>
                 <td>{new Date(demande.updated_at).toLocaleString()}</td>
                 <td>
-                  {/* Placeholder for edit logic if needed */}
                   <button className="delete-btn" onClick={() => handleDelete(demande.id)}>Supprimer</button>
                 </td>
               </tr>

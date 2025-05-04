@@ -16,7 +16,7 @@ function Header () {
                 <li><a href="">Nos Services</a></li>
                 <li><a href="">Actualité</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="">Login / Register</a></li>
+                <li><a href="/login">Login "for admin only"</a></li>
             </ul>
         </nav>  
         </header>
