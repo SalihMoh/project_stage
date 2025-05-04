@@ -13,10 +13,8 @@ function Header () {
             
             <ul className="listnav">
                 <li><a href="/">Acceuil</a></li>
-                <li><a href="">Nos Services</a></li>
-                <li><a href="">Actualité</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="/login">Login "for admin only"</a></li>
+                <li><a href="/login">Admin Login</a></li>
             </ul>
         </nav>  
         </header>
