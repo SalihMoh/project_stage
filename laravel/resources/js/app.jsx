@@ -10,7 +10,6 @@ import Footer from "./Footer/Footer";
 import FormEC from "./Forms/form-EC";
 import Contact from "./Contact/Contact";
 
-// Admin Components
 import DemandesTable from './AdminTest/AdminDemandeList.jsx';
 import CitoyensTable from './AdminTest/AdminCitoyenList.jsx';
 import EspaceAdmin from './AdminTest/EspaceAdmin.jsx';
@@ -28,7 +27,6 @@ function App() {
           <Route path="/form-EC" element={<FormEC />} />
           <Route path="/contact" element={<Contact />} />
           
-          {/* Admin Routes */}
           <Route path="/admin" element={<EspaceAdmin />} />
           <Route path="/AdmDML" element={<DemandesTable />} />
           <Route path="/AdmCL" element={<CitoyensTable />} />

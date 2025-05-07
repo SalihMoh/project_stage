@@ -13,10 +13,9 @@ function Header () {
             
             <ul className="listnav">
                 <li><a href="/">Acceuil</a></li>
-                <li><a href="">Nos Services</a></li>
+                <li><a href="/form-EC">Nos Services</a></li>
                 <li><a href="">Actualité</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><a href="">Login / Register</a></li>
             </ul>
         </nav>  
         </header>
