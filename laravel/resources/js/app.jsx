@@ -23,13 +23,14 @@ function App() {
         <Header />
 
         <Routes>
+
           <Route path="/" element={<Acceuil />} />
           <Route path="/form-EC" element={<FormEC />} />
           <Route path="/contact" element={<Contact />} />
           
           <Route path="/admin" element={<EspaceAdmin />} />
-          <Route path="/AdmDML" element={<DemandesTable />} />
-          <Route path="/AdmCL" element={<CitoyensTable />} />
+          <Route path="/AdmDML" element={[<EspaceAdmin />,<DemandesTable /> ]} />
+          <Route path="/AdmCL" element={[<EspaceAdmin />,<CitoyensTable />]} />
         </Routes>
 
         <Footer />

@@ -1,8 +1,31 @@
+<<<<<<< HEAD
 .div-holder {
     font-family: 'Poppins', sans-serif;
     color: #333;
 }
 
+=======
+@keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+>>>>>>> bc3ebec528a48a4473095551c04d0560be99ec6c
 .div-bienvenu {
     display: flex;
     flex-direction: column;
@@ -12,7 +35,50 @@
     margin-top: 1rem;
     text-align: center;
     color: white;
+<<<<<<< HEAD
     border-radius: 10px;
+=======
+    animation: fadeIn 1s ease-in;
+
+}
+
+.div-bienvenu > .buttons {
+    background-color: transparent;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.6s;
+    opacity: 0;
+}
+
+.div-bienvenu > h3, 
+.div-bienvenu > p, 
+.div-bienvenu > button {
+    justify-content: center;
+    padding: 0.5cm;
+    animation: fadeInUp 1s ease forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+}
+.div-bienvenu > .buttons > button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10%;
+    margin-right: 0.5CM;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: transparent;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+
+.div-bienvenu > .buttons > button:hover {
+    transform: scale(1.05);
+    background-color: rgba(255, 255, 255, 0.2);
+}
+.div-bienvenu > div.buttons > button > a { color: black;}
+
+.div-bienvenu > div.buttons {
+   background-color: transparent ;
+>>>>>>> bc3ebec528a48a4473095551c04d0560be99ec6c
 }
 
 .div-bienvenu h3 {

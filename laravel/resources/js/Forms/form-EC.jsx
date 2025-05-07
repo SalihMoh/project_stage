@@ -10,31 +10,20 @@ function FormEC() {
   const [activeButton, setActiveButton] = useState("Acte de Naissance");
   const [formData, setFormData] = useState({
     naissance: {
-      CIN: '',
-      nomComplet: '',
-      dateNaissance: '',
-      lieuNaissance: ''
+      CIN: ''
     },
     mariage: {
-      CIN: '',
-      conjoint1: '',
-      conjoint2: '',
-      dateMariage: '',
-      lieuMariage: ''
+      CIN: ''
     },
     deces: {
-      CIN: '',
-      nomDefunt: '',
-      dateDeces: '',
-      lieuDeces: '',
-      causeDeces: ''
+      CIN: ''
     }
   });
   const [errors, setErrors] = useState({});
   const [showRdvModal, setShowRdvModal] = useState(false);
   const [rdvTime, setRdvTime] = useState('');
   const [rdvDate, setRdvDate] = useState('');
-  const [submittedCIN, setSubmittedCIN] = useState(''); // ✅ NEW STATE
+  const [submittedCIN, setSubmittedCIN] = useState(''); 
 
   const handleButtonClick = (formType, buttonName) => {
     setActiveForm(formType);
@@ -69,12 +58,6 @@ function FormEC() {
       }
     });
 
-    if (formType === 'naissance' && currentForm.dateNaissance) {
-      const birthDate = new Date(currentForm.dateNaissance);
-      if (birthDate > new Date()) {
-        newErrors.dateNaissance = 'La date de naissance ne peut pas être dans le futur';
-      }
-    }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -195,9 +178,9 @@ function FormEC() {
       setRdvTime('');
       setSubmittedCIN('');
       setFormData({
-        naissance: { CIN: '', nomComplet: '', dateNaissance: '', lieuNaissance: '' },
-        mariage: { CIN: '', conjoint1: '', conjoint2: '', dateMariage: '', lieuMariage: '' },
-        deces: { CIN: '', nomDefunt: '', dateDeces: '', lieuDeces: '', causeDeces: '' }
+        naissance: { CIN: '' },
+        mariage: { CIN: '' },
+        deces: { CIN: '' }
       });
 
     } catch (error) {
@@ -299,9 +282,7 @@ function FormEC() {
             <h2>Formulaire d'Acte de Naissance</h2>
             <form onSubmit={(e) => handleSubmit(e, "naissance")}>
               {renderFormField("naissance", "CIN", "CIN de demandeur")}
-              {renderFormField("naissance", "nomComplet", "Nom complet")}
-              {renderFormField("naissance", "dateNaissance", "Date de naissance", "date")}
-              {renderFormField("naissance", "lieuNaissance", "Lieu de naissance")}
+             
               <button type="submit">Soumettre</button>
             </form>
           </div>
@@ -312,10 +293,7 @@ function FormEC() {
             <h2>Formulaire d'Acte de Mariage</h2>
             <form onSubmit={(e) => handleSubmit(e, "mariage")}>
               {renderFormField("mariage", "CIN", "CIN de demandeur")}
-              {renderFormField("mariage", "conjoint1", "Nom du conjoint 1")}
-              {renderFormField("mariage", "conjoint2", "Nom du conjoint 2")}
-              {renderFormField("mariage", "dateMariage", "Date de mariage", "date")}
-              {renderFormField("mariage", "lieuMariage", "Lieu de mariage")}
+              
               <button type="submit">Soumettre</button>
             </form>
           </div>
@@ -326,10 +304,6 @@ function FormEC() {
             <h2>Formulaire d'Acte de Décès</h2>
             <form onSubmit={(e) => handleSubmit(e, "deces")}>
               {renderFormField("deces", "CIN", "CIN de demandeur")}
-              {renderFormField("deces", "nomDefunt", "Nom du défunt")}
-              {renderFormField("deces", "dateDeces", "Date de décès", "date")}
-              {renderFormField("deces", "lieuDeces", "Lieu de décès")}
-              {renderFormField("deces", "causeDeces", "Cause du décès")}
               <button type="submit">Soumettre</button>
             </form>
           </div>

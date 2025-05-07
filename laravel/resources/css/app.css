@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /* Global Reset */
 * {
     margin: 0;
@@ -24,3 +25,11 @@ button {
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+=======
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+
+>>>>>>> bc3ebec528a48a4473095551c04d0560be99ec6c

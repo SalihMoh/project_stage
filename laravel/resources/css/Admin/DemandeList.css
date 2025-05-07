@@ -1,4 +1,3 @@
-/* DemandeList.css */
 
 /* General Styles */
 .ListDemandes {
@@ -10,7 +9,7 @@
   
   h1 {
     text-align: center;
-    color: #4CAF50; /* Light Green */
+    color: #4CAF50;
   }
   
   /* Filter Section */
@@ -49,7 +48,7 @@
   
   th {
     background-color: #f1f1f1;
-    color: #4CAF50; /* Light Green */
+    color: #4CAF50;
   }
   
   tr:nth-child(even) {
@@ -58,18 +57,18 @@
   
   /* Status Cell Styles */
   td[style*="yellow"] {
-    background-color: #ffeb3b; /* Yellow */
+    background-color: #ffeb3b;
     font-weight: bold;
   }
   
   td[style*="green"] {
-    background-color: #81c784; /* Light Green */
+    background-color: #81c784; 
     color: white;
     font-weight: bold;
   }
   
   td[style*="red"] {
-    background-color: #e57373; /* Light Red */
+    background-color: #e57373;
     color: white;
     font-weight: bold;
   }
@@ -81,7 +80,7 @@
   
   /* Button Styles */
   .delete-btn {
-    background-color: #f44336; /* Red */
+    background-color: #f44336; 
     color: white;
     border: none;
     padding: 8px 16px;
@@ -90,7 +89,7 @@
   }
   
   .delete-btn:hover {
-    background-color: #e53935; /* Darker Red */
+    background-color: #e53935; 
   }
   
   /* Responsive Design */
