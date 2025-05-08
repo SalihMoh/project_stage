@@ -1,0 +1,139 @@
+/* FormSignalement.css */
+
+.signalement-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #f8fff8;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .signalement-container h1 {
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  
+  .signalement-container p {
+    color: #555;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  label {
+    font-weight: 600;
+    color: #2e7d32;
+  }
+  
+  input[type="text"],
+  input[type="date"],
+  input[type="datetime-local"],
+  input[type="file"],
+  select,
+  textarea {
+    padding: 0.8rem;
+    border: 1px solid #a5d6a7;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: #f1f8e9;
+    transition: all 0.3s ease;
+  }
+  
+  input[type="text"]:focus,
+  input[type="date"]:focus,
+  input[type="datetime-local"]:focus,
+  input[type="file"]:focus,
+  select:focus,
+  textarea:focus {
+    outline: none;
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.2);
+  }
+  
+  textarea {
+    resize: vertical;
+    min-height: 100px;
+  }
+  
+  button[type="submit"] {
+    background-color: #4caf50;
+    color: white;
+    padding: 1rem 1.5rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 1rem;
+  }
+  
+  button[type="submit"]:hover {
+    background-color: #388e3c;
+  }
+  
+  button[type="submit"]:disabled {
+    background-color: #81c784;
+    cursor: not-allowed;
+  }
+  
+  .error {
+    border-color: #f44336 !important;
+  }
+  
+  .error-message {
+    color: #f44336;
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+  
+  .form-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .disclaimer {
+    font-size: 0.85rem;
+    color: #666;
+    text-align: center;
+    margin-top: 0.5rem;
+  }
+  
+  /* File input styling */
+  input[type="file"]::file-selector-button {
+    background-color: #e8f5e9;
+    border: 1px solid #a5d6a7;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    margin-right: 1rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  input[type="file"]::file-selector-button:hover {
+    background-color: #c8e6c9;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .signalement-container {
+      margin: 1rem;
+      padding: 1.5rem;
+    }
+  }

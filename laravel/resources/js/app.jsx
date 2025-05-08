@@ -9,8 +9,8 @@ import Acceuil from "./Home/Acceuil";
 import Footer from "./Footer/Footer";
 import FormEC from "./Forms/form-EC";
 import Contact from "./Contact/Contact";
+import FormSignalement from "./Forms/form-S.jsx"
 
-// Admin Components
 import DemandesTable from './AdminTest/AdminDemandeList.jsx';
 import CitoyensTable from './AdminTest/AdminCitoyenList.jsx';
 import EspaceAdmin from './AdminTest/EspaceAdmin.jsx';
@@ -28,7 +28,7 @@ function App() {
           <Route path="/" element={<Acceuil />} />
           <Route path="/form-EC" element={<FormEC />} />
           <Route path="/contact" element={<Contact />} />
-          
+          <Route path="/form-S"  element={<FormSignalement/> } />
           <Route path="/admin" element={<EspaceAdmin />} />
           <Route path="/AdmDML" element={[<EspaceAdmin />,<DemandesTable /> ]} />
           <Route path="/AdmCL" element={[<EspaceAdmin />,<CitoyensTable />]} />
