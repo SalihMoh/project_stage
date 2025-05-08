@@ -31,6 +31,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // Form page (public)
 Route::get('/form-EC', [DemandesController::class, 'showForm']);
+Route::get('/form-S', [DemandesController::class, 'showForm']);
+
+
 
 // Demand management
 Route::get('/demandes', [DemandesController::class, 'index']);
